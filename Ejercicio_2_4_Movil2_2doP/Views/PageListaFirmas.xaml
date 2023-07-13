@@ -7,29 +7,36 @@
         <conver:ByteArrayImage x:Key="ByteArray"/>
     </ContentPage.Resources>
 
-    
-
     <ContentPage.Content>
-        <CollectionView x:Name="listaFirmas">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid BackgroundColor="#F0F0F0" Padding="10" Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+        <StackLayout Padding="10">
+            <CollectionView x:Name="listaFirmas" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#F0F0F0" Padding="10" Margin="5" CornerRadius="5" HasShadow="True">
+                            <Grid VerticalOptions="Center">
+                                <Grid.ColumnDefinitions >
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                                <Image Source="{Binding FirmaDigital, Converter={StaticResource ByteArray}}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="150"
+                                       WidthRequest="150"
+                                       BackgroundColor="#ECECEC"
+                                       />
 
-                        <Frame Grid.Column="0" BackgroundColor="#ECECEC" Padding="0" Margin="0" HasShadow="False" HeightRequest="80" WidthRequest="80" CornerRadius="5">
-                            <Image x:Name="imagen" Source="{Binding FirmaDigital, Converter={StaticResource ByteArray}}" Aspect="AspectFill"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Descripcion}"
+                                       FontSize="20"
+                                       TextColor="Black"
+                                       VerticalOptions="Center"/>
+                            </Grid>
                         </Frame>
-                        <Label Grid.Column="1" Text="{Binding Descripcion}" FontSize="16" VerticalOptions="Center"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+

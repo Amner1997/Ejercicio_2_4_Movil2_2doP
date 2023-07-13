@@ -13,8 +13,7 @@ namespace Ejercicio_2_4_Movil2_2doP
 {
     public partial class MainPage : ContentPage
     {
-        Plugin.Media.Abstractions.MediaFile photo = null;
-
+     
         public MainPage()
         {
             InitializeComponent();
@@ -22,6 +21,12 @@ namespace Ejercicio_2_4_Movil2_2doP
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(descripcion.Text))
+            {
+                await DisplayAlert("Aviso", "Por favor, ingresa una descripción", "Ok");
+                return;
+            }
+
             Stream image = await PadView.GetImageStreamAsync(SignatureImageFormat.Png);
             byte[] imageBytes = null;
 
@@ -43,12 +48,15 @@ namespace Ejercicio_2_4_Movil2_2doP
             if (await App.Instancia.AddPhoto(signature) > 0)
             {
                 await DisplayAlert("Aviso", "Firma guardada correctamente", "Ok");
+                descripcion.Text = "";
+                PadView.Clear();
             }
             else
             {
                 await DisplayAlert("Aviso", "No se ha podido guardar la firma", "Ok");
             }
         }
+
 
         private void ClearButton_Clicked(object sender, EventArgs e)
         {
